@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "navcli"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+include = [
+    "src"
+]
+
+[tool.poetry.scripts]
+console = "src.__main__:run"
+
+[tool.poetry.dependencies]
+python = "~3.9"
+msgspec = "^0.18.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
