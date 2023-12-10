@@ -1,0 +1,59 @@
+name: 📚 Project documentation
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    
+    paths:
+      - docs/
+
+jobs:
+  build:
+    name: 📦 Build
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+
+      - name: 🐍 Install dependencies
+        run: |
+          cd ..
+          python -m pip install poetry
+          python -m poetry install --only docs
+
+      - name: 📚 Build documentation
+        run: python -m poetry run sphinx-build -M html source build
+      
+      - name: 📦 Upload page artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/build/html
+  
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url}}
+    
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: 🚀 Upload to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+    
