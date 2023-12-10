@@ -1,8 +1,10 @@
-from typing import Union, Callable
+"""Common structs for the navcli package."""
+
+from typing import Callable, Union
 
 from msgspec import Struct
 
-from navcli.actions.base import Action
+from navcli.actions import Action
 
 
 class Option(Struct):

@@ -3,7 +3,10 @@
 Actions are used to define what happens when an option is selected.
 """
 
-from .quit import Quit
-from .redirect import Redirect
+from .base import Action
+from .commons import Quit as __Quit
+from .commons import Redirect
 
-__all__ = ["Quit", "Redirect"]
+QUIT = __Quit()
+
+__all__ = ["QUIT", "Redirect", "Action"]

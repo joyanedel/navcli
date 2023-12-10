@@ -1,9 +1,9 @@
 import curses
 from queue import Queue
 
-from navcli.hightlights import HighlightOptionBase, DefaultHighlightOption
+from navcli.highlights.base import HighlightOptionBase, DefaultHighlightOption
 from navcli.structs import View
-from navcli.actions import Quit, Redirect
+from navcli.actions import QUIT, Redirect
 from navcli.exceptions import UnexpectedActionException
 
 
@@ -69,7 +69,7 @@ class Navigation:
                     option.action()
                     continue
 
-                elif isinstance(option.action, Quit):
+                elif option.action == QUIT:
                     break
 
                 elif isinstance(option.action, Redirect):
